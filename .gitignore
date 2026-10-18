@@ -1,0 +1,61 @@
+# Compiled Java files
+*.class
+
+# Build output
+target/
+build/
+out/
+
+# Maven wrapper
+# Keep mvnw, mvnw.cmd and .mvn/wrapper files in Git.
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# Visual Studio Code
+.vscode/
+
+# Logs
+*.log
+logs/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Local configuration that may contain secrets
+application-local.yml
+application-local.yaml
+application-local.properties
+application-dev.yml
+application-dev.yaml
+application-dev.properties
+
+# Temporary files
+*.tmp
+*.swp
+*.bak
+
+# Test reports
+surefire-reports/
+failsafe-reports/
+
+# Local database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Docker local overrides
+docker-compose.override.yml
