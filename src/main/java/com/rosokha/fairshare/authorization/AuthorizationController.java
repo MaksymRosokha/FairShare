@@ -7,6 +7,8 @@ import com.rosokha.fairshare.user.dto.UserRegistrationDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
 
 @Controller
 public class AuthorizationController {
+    private static final Logger log = LoggerFactory.getLogger(AuthorizationController.class);
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
@@ -39,21 +42,27 @@ public class AuthorizationController {
     public String getLoginPage(Model model,
                                @RequestParam(value = "error", required = false) String error) {
         if (userService.isUserAuthenticated()) {
+            log.debug("Authenticated user attempted to access login page, redirecting to /home");
             return "redirect:/home";
         }
         if (error != null ) {
+            log.warn("Login failed: invalid credential provided");
             model.addAttribute("isAuthenticationFailed", true);
             model.addAttribute("errorMessage", "Invalid email or password.");
         }
 
+        log.debug("Rendering login page");
         return "authorization/login-page";
     }
 
     @GetMapping("/registration")
     public String getRegisterPage(Model model) {
         if (userService.isUserAuthenticated()) {
+            log.debug("Authenticated user attempted to access registration page, redirecting to /home");
             return "redirect:/home";
         }
+
+        log.debug("Rendering registration page");
         model.addAttribute("userDto", new UserRegistrationDto());
         return "authorization/registration-page";
     }
@@ -65,10 +74,13 @@ public class AuthorizationController {
             BindingResult bindingResult,
             HttpServletRequest request
     ) {
+        log.info("Processing registration attempt for email: {}", userDto.getEmail());
+
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getAllErrors().stream()
                     .map(error -> error.getDefaultMessage())
                     .collect(Collectors.joining(". "));
+            log.warn("Registration validation failed for email: {}. Errors: {}", userDto.getEmail(), errorMessage);
             model.addAttribute("isAuthenticationFailed", true);
             model.addAttribute("errorMessage", errorMessage);
             return "authorization/registration-page";
@@ -83,7 +95,7 @@ public class AuthorizationController {
                 encodedPassword
         );
         userService.save(user);
-
+        log.info("User with email: {} successfully registered and saved to database. Redirecting to /home page", userDto.getEmail());
         forceAutoLogin(userDto.getEmail(), encodedPassword, request);
 
         return "redirect:/home";
@@ -99,8 +111,10 @@ public class AuthorizationController {
 
             HttpSession session = request.getSession(true);
             session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, context);
+
+            log.info("User with email: {} automatically logged in after registration", email);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Failed to force auto-login for user with email: {}. Error: {}", email, e);
         }
     }
 }
