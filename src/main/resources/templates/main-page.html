@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FairShare — Split Expenses Easily</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/main-page.css}">
+</head>
+<body>
+
+<div class="landing-page">
+    <header class="header">
+        <a th:href="@{/}" class="logo">FairShare 🚀</a>
+        <div class="nav-links">
+            <a th:href="@{/login}" class="nav-btn-text">Sign In</a>
+            <a th:href="@{/registration}" class="btn-primary nav-btn-primary">Get Started</a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="hero-section">
+            <h1 class="hero-title">Split expenses with friends without the hassle</h1>
+            <p class="hero-subtitle">
+                The smartest way to keep track of shared bills, trips, and household costs.
+                Transparent tracking, simple settlements, zero stress.
+            </p>
+            <a th:href="@{/registration}" class="btn-primary hero-cta">Create Free Account</a>
+        </section>
+
+        <section class="features-section">
+            <div class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon">📊</span>
+                    <h3>Transparent Tracking</h3>
+                </div>
+                <p>Keep tabs on who owes whom in real time with automated calculations and history.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon">👥</span>
+                    <h3>Expense Groups</h3>
+                </div>
+                <p>Create dedicated spaces for trips, apartments, or events to keep everything organized.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon">⚡</span>
+                    <h3>Simple Settlements</h3>
+                </div>
+                <p>Calculate effortless balances with minimal transfers so everyone pays their fair share.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Secure & Open Source Expense Management System &bull; FairShare © 2026</p>
+    </footer>
+</div>
+
+</body>
+</html>

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FairShare — Login</title>
-    <link rel="stylesheet" href="/css/authorization/authorization-page.css">
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/authorization/authorization-page.css}">
 </head>
 <body>
 
@@ -33,7 +34,7 @@
     </form>
 
     <div class="form-footer">
-        Don't have an account? <a href="/registration">Sign Up</a>
+        Don't have an account? <a th:href="@{/registration}">Sign Up</a>
     </div>
 </div>
 
