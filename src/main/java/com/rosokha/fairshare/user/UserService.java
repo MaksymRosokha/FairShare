@@ -5,8 +5,10 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class UserService {
     private final UserRepository userRepository;
 
@@ -26,6 +28,7 @@ public class UserService {
                 && !(authentication instanceof AnonymousAuthenticationToken);
     }
 
+    @Transactional(readOnly = true)
     public User getCurrentUser(){
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepository
@@ -34,6 +37,5 @@ public class UserService {
                         () -> new IllegalArgumentException("User with email = " + email + " not found")
                 );
     }
-
 
 }
