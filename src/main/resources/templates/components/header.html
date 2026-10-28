@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<header class="header" th:fragment="site-header">
+    <div class="header-container">
+        <a th:href="@{/}" class="logo">FairShare 🚀</a>
+        <div class="nav-links">
+            <a th:href="@{/login}" class="nav-btn-text">Sign In</a>
+            <a th:href="@{/registration}" class="btn-primary nav-btn-primary">Get Started</a>
+        </div>
+    </div>
+</header>
+</body>
+</html>

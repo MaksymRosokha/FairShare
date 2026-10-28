@@ -5,48 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FairShare — Register</title>
     <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/components/header.css}">
+    <link rel="stylesheet" th:href="@{/css/components/footer.css}">
     <link rel="stylesheet" th:href="@{/css/authorization/authorization-page.css}">
+    <link rel="stylesheet" th:href="@{/css/main-page.css}">
 </head>
 <body>
 
-<div class="container">
-    <div class="logo-area">
-        <h1>Create Account</h1>
-        <p>Join FairShare</p>
+<div th:replace="~{components/header :: site-header}"></div>
+
+<main class="landing-page" style="justify-content: center; min-height: calc(100vh - 130px);">
+    <div class="container" style="margin: 0 auto;">
+        <div class="logo-area">
+            <h1>Create Account</h1>
+            <p>Join FairShare</p>
+        </div>
+
+        <div class="alert-error" th:if="${isAuthenticationFailed}">
+            <span th:text="${errorMessage}">Registration failed. Please try again.</span>
+        </div>
+
+        <form th:object="${userDto}" action="/registration" method="POST">
+            <div class="form-group">
+                <label for="login">Login</label>
+                <input th:field="*{login}" type="text" id="login" minlength="3" maxlength="32" class="form-control" required placeholder="Unique login">
+            </div>
+
+            <div class="form-group">
+                <label for="full_name">Full Name</label>
+                <input th:field="*{fullName}" type="text" id="full_name" minlength="3" maxlength="64" class="form-control" required placeholder="John Doe">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input th:field="*{email}" type="email" id="email" minlength="3" maxlength="128" class="form-control" required placeholder="example@domain.com">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input th:field="*{password}" type="password" id="password" minlength="8" maxlength="128" class="form-control" required placeholder="••••••••">
+            </div>
+
+            <button type="submit" class="btn-primary">Register</button>
+        </form>
+
+        <div class="form-footer">
+            Already have an account? <a th:href="@{/login}">Sign In</a>
+        </div>
     </div>
+</main>
 
-    <div class="alert-error" th:if="${isAuthenticationFailed}">
-        <span th:text="${errorMessage}">Registration failed. Please try again.</span>
-    </div>
-
-    <form th:object="${userDto}" action="/registration" method="POST">
-        <div class="form-group">
-            <label for="login">Login</label>
-            <input th:field="*{login}" type="text" id="login" minlength="3" maxlength="32" class="form-control" required placeholder="Unique login">
-        </div>
-
-        <div class="form-group">
-            <label for="full_name">Full Name</label>
-            <input th:field="*{fullName}" type="text" id="full_name" minlength="3" maxlength="64" class="form-control" required placeholder="John Doe">
-        </div>
-
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input th:field="*{email}" type="email" id="email" minlength="3" maxlength="128" class="form-control" required placeholder="example@domain.com">
-        </div>
-
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input th:field="*{password}" type="password" id="password" minlength="8" maxlength="128" class="form-control" required placeholder="••••••••">
-        </div>
-
-        <button type="submit" class="btn-primary">Register</button>
-    </form>
-
-    <div class="form-footer">
-        Already have an account? <a th:href="@{/login}">Sign In</a>
-    </div>
-</div>
+<div th:replace="~{components/footer :: site-footer}"></div>
 
 </body>
 </html>
