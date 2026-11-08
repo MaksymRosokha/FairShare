@@ -21,7 +21,8 @@
                 The smartest way to keep track of shared bills, trips, and household costs.
                 Transparent tracking, simple settlements, zero stress.
             </p>
-            <a th:href="@{/registration}" class="btn-primary hero-cta">Create Free Account</a>
+            <a th:if="${!isUserAuthenticated}" th:href="@{/registration}" class="btn-primary hero-cta">Create Free Account</a>
+            <a th:if="${isUserAuthenticated}" th:href="@{/dashboard}" class="btn-primary hero-cta">Open Dashboard</a>
         </section>
 
         <section class="features-section">

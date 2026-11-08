@@ -51,6 +51,8 @@ public class AuthorizationController {
             model.addAttribute("errorMessage", "Invalid email or password.");
         }
 
+        model.addAttribute("isUserAuthenticated", false);
+
         log.debug("Rendering login page");
         return "authorization/login-page";
     }
@@ -62,8 +64,10 @@ public class AuthorizationController {
             return "redirect:/dashboard";
         }
 
-        log.debug("Rendering registration page");
         model.addAttribute("userDto", new UserRegistrationDto());
+        model.addAttribute("isUserAuthenticated", false);
+
+        log.debug("Rendering registration page");
         return "authorization/registration-page";
     }
 
@@ -83,6 +87,7 @@ public class AuthorizationController {
             log.warn("Registration validation failed for email: {}. Errors: {}", userDto.getEmail(), errorMessage);
             model.addAttribute("isAuthenticationFailed", true);
             model.addAttribute("errorMessage", errorMessage);
+            model.addAttribute("isUserAuthenticated", false);
             return "authorization/registration-page";
         }
 

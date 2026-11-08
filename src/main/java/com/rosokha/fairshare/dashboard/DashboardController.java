@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class DashboardController {
     private final UserService userService;
-    private final Logger log = LoggerFactory.getLogger(DashboardController.class);
+    private static final Logger log = LoggerFactory.getLogger(DashboardController.class);
 
     @Autowired
     public DashboardController(UserService userService) {
@@ -24,6 +24,7 @@ public class DashboardController {
         User currentUser = userService.getCurrentUser();
 
         model.addAttribute("user", currentUser);
+        model.addAttribute("isUserAuthenticated", userService.isUserAuthenticated());
 
         log.debug("Rendering dashboard page");
         return "dashboard/dashboard-page";

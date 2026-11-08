@@ -8,8 +8,9 @@
     <div class="header-container">
         <a th:href="@{/}" class="logo">FairShare 🚀</a>
         <div class="nav-links">
-            <a th:href="@{/login}" class="nav-btn-text">Sign In</a>
-            <a th:href="@{/registration}" class="btn-primary nav-btn-primary">Get Started</a>
+            <a th:if="${!isUserAuthenticated}" th:href="@{/login}" class="nav-btn-text">Sign In</a>
+            <a th:if="${!isUserAuthenticated}" th:href="@{/registration}" class="btn-primary nav-btn-primary">Get Started</a>
+            <a th:if="${isUserAuthenticated}" th:href="@{/logout}" class="nav-btn-text">Log Out</a>
         </div>
     </div>
 </header>
