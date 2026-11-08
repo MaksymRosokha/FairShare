@@ -11,7 +11,7 @@ public class CommonController {
 
     @GetMapping("/")
     public String getMainPage(){
-        log.info("Rendering main page");
+        log.debug("Rendering main page");
         return "main-page";
     }
 }

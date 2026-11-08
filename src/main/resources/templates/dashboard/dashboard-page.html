@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FairShare — Dashboard</title>
+
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/components/header.css}">
+    <link rel="stylesheet" th:href="@{/css/components/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/dashboard/dashboard-page.css}">
+</head>
+<body class="dashboard-body">
+
+<div th:replace="~{components/header :: site-header}"></div>
+
+<main class="dashboard-page">
+
+    <!-- Dashboard Header -->
+    <section class="dashboard-welcome">
+        <div>
+            <p class="welcome-label">YOUR DASHBOARD</p>
+
+            <h1>
+                Welcome back,
+                <span th:text="${user.fullName}"></span>!
+            </h1>
+
+            <p class="welcome-subtitle">
+                Here's an overview of your shared expenses and balances.
+            </p>
+        </div>
+
+        <a th:href="@{/groups/create}" class="btn-primary create-group-btn">
+            <span>+</span> Create New Group
+        </a>
+    </section>
+
+
+    <!-- Balance Overview -->
+    <section class="balance-section">
+
+        <div class="section-heading">
+            <h2>Balance Overview</h2>
+            <span class="section-description">Your financial summary</span>
+        </div>
+
+        <div class="balance-grid">
+
+            <article class="balance-card total-balance">
+                <div class="balance-card-header">
+                    <span>Total Balance</span>
+                    <span class="balance-icon">💰</span>
+                </div>
+
+                <h3 class="balance-value"
+                    th:text="${totalBalance != null ? totalBalance : '€30.00'}">
+                    €30.00
+                </h3>
+
+                <p>Across all your groups</p>
+            </article>
+
+            <article class="balance-card owe-card">
+                <div class="balance-card-header">
+                    <span>You Owe</span>
+                    <span class="balance-icon">↗</span>
+                </div>
+
+                <h3 class="balance-value negative"
+                    th:text="${totalOwed != null ? totalOwed : '€45.00'}">
+                    €45.00
+                </h3>
+
+                <p>Money you need to pay</p>
+            </article>
+
+            <article class="balance-card owed-card">
+                <div class="balance-card-header">
+                    <span>You Are Owed</span>
+                    <span class="balance-icon">↙</span>
+                </div>
+
+                <h3 class="balance-value positive"
+                    th:text="${totalOwing != null ? totalOwing : '€75.00'}">
+                    €75.00
+                </h3>
+
+                <p>Money others owe you</p>
+            </article>
+
+        </div>
+    </section>
+
+
+    <!-- Groups Section -->
+    <section class="groups-section">
+
+        <div class="section-heading">
+            <div>
+                <h2>My Groups</h2>
+                <span class="section-description">
+                    Manage your shared expenses
+                </span>
+            </div>
+
+            <a th:href="@{/groups}" class="view-all-link">
+                View All →
+            </a>
+        </div>
+
+        <div class="groups-grid">
+
+            <!-- Group 1 -->
+            <article class="group-card">
+
+                <div class="group-card-top">
+                    <div class="group-icon">🏠</div>
+                    <span class="group-status">Active</span>
+                </div>
+
+                <h3>Apartment</h3>
+
+                <p class="group-members">
+                    👥 3 members
+                </p>
+
+                <div class="group-divider"></div>
+
+                <div class="group-info">
+                    <span>Total expenses</span>
+                    <strong>€450.00</strong>
+                </div>
+
+                <div class="group-info">
+                    <span>Your balance</span>
+                    <strong class="positive">+€35.00</strong>
+                </div>
+
+                <a th:href="@{/groups/1}" class="group-link">
+                    View Group →
+                </a>
+
+            </article>
+
+
+            <!-- Group 2 -->
+            <article class="group-card">
+
+                <div class="group-card-top">
+                    <div class="group-icon">✈️</div>
+                    <span class="group-status">Active</span>
+                </div>
+
+                <h3>Summer Trip</h3>
+
+                <p class="group-members">
+                    👥 5 members
+                </p>
+
+                <div class="group-divider"></div>
+
+                <div class="group-info">
+                    <span>Total expenses</span>
+                    <strong>€1,250.00</strong>
+                </div>
+
+                <div class="group-info">
+                    <span>Your balance</span>
+                    <strong class="negative">-€25.00</strong>
+                </div>
+
+                <a th:href="@{/groups/2}" class="group-link">
+                    View Group →
+                </a>
+
+            </article>
+
+
+            <!-- Group 3 -->
+            <article class="group-card">
+
+                <div class="group-card-top">
+                    <div class="group-icon">🎉</div>
+                    <span class="group-status">Active</span>
+                </div>
+
+                <h3>Weekend Party</h3>
+
+                <p class="group-members">
+                    👥 4 members
+                </p>
+
+                <div class="group-divider"></div>
+
+                <div class="group-info">
+                    <span>Total expenses</span>
+                    <strong>€320.00</strong>
+                </div>
+
+                <div class="group-info">
+                    <span>Your balance</span>
+                    <strong class="positive">+€40.00</strong>
+                </div>
+
+                <a th:href="@{/groups/3}" class="group-link">
+                    View Group →
+                </a>
+
+            </article>
+
+        </div>
+    </section>
+
+
+    <!-- Recent Expenses and Settlements -->
+    <section class="activity-section">
+
+        <div class="section-heading">
+            <div>
+                <h2>Recent Activity</h2>
+                <span class="section-description">
+                    Your latest transactions
+                </span>
+            </div>
+
+            <a th:href="@{/expenses}" class="view-all-link">
+                View All →
+            </a>
+        </div>
+
+        <div class="activity-card">
+
+            <div class="activity-header">
+                <span>Expense</span>
+                <span>Group</span>
+                <span>Date</span>
+                <span>Amount</span>
+            </div>
+
+            <div class="activity-row">
+                <div class="expense-description">
+                    <span class="expense-icon">🛒</span>
+                    <div>
+                        <strong>Groceries</strong>
+                        <small>Paid by you</small>
+                    </div>
+                </div>
+
+                <span class="activity-group">Apartment</span>
+                <span class="activity-date">Nov 08, 2026</span>
+                <strong class="expense-amount">€65.00</strong>
+            </div>
+
+            <div class="activity-row">
+                <div class="expense-description">
+                    <span class="expense-icon">🍕</span>
+                    <div>
+                        <strong>Dinner</strong>
+                        <small>Paid by Sarah</small>
+                    </div>
+                </div>
+
+                <span class="activity-group">Summer Trip</span>
+                <span class="activity-date">Nov 06, 2026</span>
+                <strong class="expense-amount negative">-€25.00</strong>
+            </div>
+
+            <div class="activity-row">
+                <div class="expense-description">
+                    <span class="expense-icon">🚕</span>
+                    <div>
+                        <strong>Taxi</strong>
+                        <small>Paid by you</small>
+                    </div>
+                </div>
+
+                <span class="activity-group">Weekend Party</span>
+                <span class="activity-date">Nov 04, 2026</span>
+                <strong class="expense-amount">€40.00</strong>
+            </div>
+
+            <div class="activity-row">
+                <div class="expense-description">
+                    <span class="expense-icon">🏠</span>
+                    <div>
+                        <strong>Electricity bill</strong>
+                        <small>Paid by Mark</small>
+                    </div>
+                </div>
+
+                <span class="activity-group">Apartment</span>
+                <span class="activity-date">Nov 02, 2026</span>
+                <strong class="expense-amount negative">-€15.00</strong>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- Quick Actions -->
+    <section class="quick-actions-section">
+
+        <div class="section-heading">
+            <div>
+                <h2>Quick Actions</h2>
+                <span class="section-description">
+                    What would you like to do?
+                </span>
+            </div>
+        </div>
+
+        <div class="quick-actions-grid">
+
+            <a th:href="@{/groups/create}" class="quick-action-card">
+                <span class="quick-action-icon">👥</span>
+                <div>
+                    <h3>Create a Group</h3>
+                    <p>Start sharing expenses with friends.</p>
+                </div>
+                <span class="quick-action-arrow">→</span>
+            </a>
+
+            <a th:href="@{/expenses/create}" class="quick-action-card">
+                <span class="quick-action-icon">➕</span>
+                <div>
+                    <h3>Add an Expense</h3>
+                    <p>Record a new shared expense.</p>
+                </div>
+                <span class="quick-action-arrow">→</span>
+            </a>
+
+            <a th:href="@{/settlements}" class="quick-action-card">
+                <span class="quick-action-icon">💸</span>
+                <div>
+                    <h3>Settle Up</h3>
+                    <p>Check and settle outstanding balances.</p>
+                </div>
+                <span class="quick-action-arrow">→</span>
+            </a>
+
+        </div>
+    </section>
+
+</main>
+
+<div th:replace="~{components/footer :: site-footer}"></div>
+
+</body>
+</html>

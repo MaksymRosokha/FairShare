@@ -42,8 +42,8 @@ public class AuthorizationController {
     public String getLoginPage(Model model,
                                @RequestParam(value = "error", required = false) String error) {
         if (userService.isUserAuthenticated()) {
-            log.debug("Authenticated user attempted to access login page, redirecting to /home");
-            return "redirect:/home";
+            log.debug("Authenticated user attempted to access login page, redirecting to /dashboard");
+            return "redirect:/dashboard";
         }
         if (error != null ) {
             log.warn("Login failed: invalid credential provided");
@@ -58,8 +58,8 @@ public class AuthorizationController {
     @GetMapping("/registration")
     public String getRegisterPage(Model model) {
         if (userService.isUserAuthenticated()) {
-            log.debug("Authenticated user attempted to access registration page, redirecting to /home");
-            return "redirect:/home";
+            log.debug("Authenticated user attempted to access registration page, redirecting to /dashboard");
+            return "redirect:/dashboard";
         }
 
         log.debug("Rendering registration page");
@@ -95,10 +95,10 @@ public class AuthorizationController {
                 encodedPassword
         );
         userService.save(user);
-        log.info("User with email: {} successfully registered and saved to database. Redirecting to /home page", userDto.getEmail());
+        log.info("User with email: {} successfully registered and saved to database. Redirecting to /dashboard page", userDto.getEmail());
         forceAutoLogin(userDto.getEmail(), encodedPassword, request);
 
-        return "redirect:/home";
+        return "redirect:/dashboard";
     }
 
     private void forceAutoLogin(String email, String password, HttpServletRequest request) {

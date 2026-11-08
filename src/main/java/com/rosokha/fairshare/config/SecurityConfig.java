@@ -39,8 +39,8 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/registration", "/css/**").permitAll()
-                        .requestMatchers("/home/**").hasAnyRole(UserRole.USER.name(), UserRole.ADMIN.name())
+                        .requestMatchers("/", "/registration", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/dashboard/**").hasAnyRole(UserRole.USER.name(), UserRole.ADMIN.name())
                         .requestMatchers("/admin/**").hasRole(UserRole.ADMIN.name())
                         .anyRequest().authenticated()
                 )
@@ -48,7 +48,7 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .permitAll()
                         .usernameParameter("email")
-                        .defaultSuccessUrl("/home", true))
+                        .defaultSuccessUrl("/dashboard", true))
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .permitAll())
